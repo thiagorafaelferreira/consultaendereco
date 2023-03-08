@@ -17,10 +17,15 @@ import java.util.Map;
 import static com.bradesco.consultaendereco.entity.Constantes.REGIAO_ESTADO;
 import static com.bradesco.consultaendereco.entity.Constantes.REGIAO_PRECO;
 
+/**
+ * EnderecoService
+ * Responsavel por processar informacoes de endereco
+ */
 @Slf4j
 @Service
 public class EnderecoService {
 
+    private static final String URL = "http://viacep.com.br/ws/{cep}/json/";
     private final RestTemplate restTemplate;
 
     public EnderecoService(RestTemplate restTemplate) {
@@ -28,12 +33,12 @@ public class EnderecoService {
     }
 
     public ConsultaEnderecoResponse consultaEndereco(String cep) {
-        String url = "http://viacep.com.br/ws/{cep}/json/";
-        Map<String, String> params = new HashMap<>();
-        params.put("cep", cep);
+        Map<String, String> params = new HashMap<>() {{
+            put("cep", cep);
+        }};
 
         try {
-            ResponseEntity<Endereco> enderecoResponse = restTemplate.exchange(url, HttpMethod.GET, null, Endereco.class, params);
+            ResponseEntity<Endereco> enderecoResponse = restTemplate.exchange(URL, HttpMethod.GET, null, Endereco.class, params);
 
             Endereco endereco = enderecoResponse.getBody();
 

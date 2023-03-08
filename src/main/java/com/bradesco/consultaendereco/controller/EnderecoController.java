@@ -3,6 +3,7 @@ package com.bradesco.consultaendereco.controller;
 import com.bradesco.consultaendereco.entity.request.ConsultaEnderecoRequest;
 import com.bradesco.consultaendereco.entity.response.ConsultaEnderecoResponse;
 import com.bradesco.consultaendereco.service.EnderecoService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class EnderecoController {
     }
 
     @PostMapping("/consulta-endereco")
-    public ResponseEntity<ConsultaEnderecoResponse> buscarEndereco(@RequestBody ConsultaEnderecoRequest consultaEnderecoRequest) {
+    public ResponseEntity<ConsultaEnderecoResponse> buscarEndereco(@Valid @RequestBody ConsultaEnderecoRequest consultaEnderecoRequest) {
         try {
             ConsultaEnderecoResponse consultaEnderecoResponse = enderecoService.consultaEndereco(consultaEnderecoRequest.getCep());
             return ResponseEntity.ok(consultaEnderecoResponse);

@@ -1,8 +1,8 @@
 package com.bradesco.consultaendereco.service;
 
 import com.bradesco.consultaendereco.entity.enums.Regiao;
-import com.bradesco.consultaendereco.entity.viacep.Endereco;
 import com.bradesco.consultaendereco.entity.response.ConsultaEnderecoResponse;
+import com.bradesco.consultaendereco.entity.viacep.Endereco;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -63,9 +63,9 @@ public class EnderecoService {
     private BigDecimal calculaPreco(String estado) {
         if (estado == null || estado == "") return null;
 
-        for(Regiao regiao : REGIAO_ESTADO.keySet()) {
-            if(REGIAO_ESTADO.get(regiao).contains(estado)) {
-               return REGIAO_PRECO.get(regiao);
+        for(Map.Entry<Regiao, String> regiaoEstado: REGIAO_ESTADO.entrySet()) {
+            if(regiaoEstado.getValue().contains(estado)) {
+               return REGIAO_PRECO.get(regiaoEstado.getKey());
             }
         }
 

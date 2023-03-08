@@ -1,5 +1,7 @@
 package com.bradesco.consultaendereco.entity.request;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,5 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ConsultaEnderecoRequest {
 
+    @NotBlank(message = "CEP deve ser preenchido")
+    @Size(min = 8, max = 8)
     private String cep;
 }
